@@ -190,7 +190,7 @@ function focusTone(f: TutorFocusDTO | null): string {
   return "bg-orange-500/15 text-orange-800 dark:text-orange-200";
 }
 
-export default function TutorPage() {
+function TutorPageInner() {
   const [uploads, setUploads] = React.useState<UploadDTO[]>([]);
   const [sessions, setSessions] = React.useState<TutorSessionDTO[]>([]);
   const [maxSessions, setMaxSessions] = React.useState(25);
@@ -3179,5 +3179,13 @@ export default function TutorPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function TutorPage() {
+  return (
+    <React.Suspense fallback={<div className="flex h-screen items-center justify-center"><Loader2 className="size-8 animate-spin text-muted-foreground" /></div>}>
+      <TutorPageInner />
+    </React.Suspense>
   );
 }
