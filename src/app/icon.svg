@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="acadomi-mark" x1="34" y1="24" x2="94" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5ef0c4"/>
+      <stop offset="0.45" stop-color="#00d68a"/>
+      <stop offset="1" stop-color="#008f5c"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#05081f"/>
+  <path
+    stroke="url(#acadomi-mark)"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    d="M64 28L36 102M64 28L92 102M46 70h36"
+  />
+  <circle cx="98" cy="34" r="7" fill="#5ef0c4" opacity="0.95"/>
+</svg>
