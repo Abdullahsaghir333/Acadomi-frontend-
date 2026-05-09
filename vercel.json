@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://a98bdbe2040e046e19a2ed15717c6b07-1055724854.eu-north-1.elb.amazonaws.com/api/:path*"
+    },
+    {
+      "source": "/socket.io/:path*",
+      "destination": "http://a98bdbe2040e046e19a2ed15717c6b07-1055724854.eu-north-1.elb.amazonaws.com/socket.io/:path*"
+    }
+  ]
+}
