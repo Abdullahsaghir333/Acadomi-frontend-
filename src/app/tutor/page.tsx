@@ -262,8 +262,9 @@ function TutorPageInner() {
     playNarration: (_i: number) => {},
     stopNarration: () => {},
     pauseAnswer: () => {},
-    playAnswerTts: (_t: string, _bullets?: string[]) => {},
+    playAnswerTts: (_t: string, _opts?: { bullets?: string[]; onEnded?: () => void }) => {},
     setSlideIndex: (_i: number) => {},
+    resumeLectureAfterAnswer: () => {},
   });
 
   React.useEffect(() => {
@@ -926,7 +927,10 @@ function TutorPageInner() {
         setLastQa({ question: p.question, answer: p.answer, askerName: p.askerName });
         setTutorView("qa");
         const bullets = parseAnswerIntoBullets(p.answer);
-        void lessonHandlersRef.current.playAnswerTts(p.answer, bullets);
+        void lessonHandlersRef.current.playAnswerTts(p.answer, {
+          bullets,
+          onEnded: () => lessonHandlersRef.current.resumeLectureAfterAnswer(),
+        });
       },
     );
     socket.on("group:chat_message", (msg: TutorGroupChatMessageDTO) => {
@@ -1860,9 +1864,10 @@ function TutorPageInner() {
     playNarration: (i: number) => void playNarration(i),
     stopNarration,
     pauseAnswer: pauseAnswerPlayback,
-    playAnswerTts: (text: string, bullets?: string[]) =>
-      void playAnswerTts(text, bullets?.length ? { bullets } : undefined),
+    playAnswerTts: (text: string, opts?: { bullets?: string[]; onEnded?: () => void }) =>
+      void playAnswerTts(text, opts),
     setSlideIndex: (i: number) => setSlideIndex(i),
+    resumeLectureAfterAnswer: () => void resumeLectureAfterAnswer(),
   };
 
   return (
