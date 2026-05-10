@@ -2,6 +2,15 @@ export const API_BASE = (
   process.env.NEXT_PUBLIC_API_URL ?? ""
 ).replace(/\/+$/, "");
 
+/** Direct backend URL for Socket.IO (WebSocket needs a direct connection, not a Vercel proxy). */
+export const SOCKET_BASE = (
+  process.env.NEXT_PUBLIC_SOCKET_URL ?? API_BASE
+).replace(/\/+$/, "");
+
+/** When SOCKET_BASE is empty (proxied through Vercel), only HTTP polling works — no WebSocket. */
+export const SOCKET_TRANSPORTS: ("websocket" | "polling")[] =
+  SOCKET_BASE ? ["websocket", "polling"] : ["polling"];
+
 export const TOKEN_KEY = "acadomi_token";
 
 export function getToken(): string | null {

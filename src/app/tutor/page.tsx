@@ -48,6 +48,8 @@ import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
 import {
   API_BASE,
+  SOCKET_BASE,
+  SOCKET_TRANSPORTS,
   apiAcceptTutorGroup,
   apiCreateConceptBookmark,
   apiCreateTutorGroup,
@@ -861,9 +863,9 @@ function TutorPageInner() {
     if (!groupId || !isGroupLive) return;
     const t = getToken();
     if (!t) return;
-    const socket = io(API_BASE, {
+    const socket = io(SOCKET_BASE || undefined, {
       path: "/socket.io/",
-      transports: ["websocket", "polling"],
+      transports: SOCKET_TRANSPORTS,
       auth: { token: t },
     });
     groupSocketRef.current = socket;
