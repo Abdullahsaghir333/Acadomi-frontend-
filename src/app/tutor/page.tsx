@@ -1065,8 +1065,11 @@ function TutorPageInner() {
         window.setTimeout(() => setBookmarkNotice(null), 3200);
       } catch (e) {
         const msg = e instanceof Error ? e.message : "Could not save bookmark.";
-        setError(msg);
         if (/already bookmarked/i.test(msg)) {
+          setBookmarkNotice("Saved to Bookmarks — view under Bookmarks in the header.");
+          window.setTimeout(() => setBookmarkNotice(null), 3200);
+        } else {
+          setError(msg);
           bookmarkErrorTimerRef.current = setTimeout(() => {
             setError((cur) => (cur === msg ? null : cur));
             bookmarkErrorTimerRef.current = null;
