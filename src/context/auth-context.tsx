@@ -43,6 +43,13 @@ const protectedPrefixes = [
   "/friends",
 ];
 
+const ALLOWED_EMAILS = [
+  "msalmansaleem08@gmail.com",
+  "i220904@nu.edu.pk",
+  "i221076@nu.edu.pk",
+  "i221188@nu.edu.pk",
+];
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<UserDTO | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -81,6 +88,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     if (!ready || loading) return;
+    
+    // Whitelist check
+    if (user) {
+      const email = user.email.toLowerCase();
+      const isAllowed = ALLOWED_EMAILS.includes(email);
+
+      if (!isAllowed && pathname !== "/invite") {
+        router.replace("/invite");
+        return;
+      }
+      
+      if (isAllowed && pathname === "/invite") {
+        router.replace("/dashboard");
+        return;
+      }
+    }
+
     const needAuth = protectedPrefixes.some((p) => pathname.startsWith(p));
     if (needAuth && !user) {
       router.replace(`/login?next=${encodeURIComponent(pathname)}`);
