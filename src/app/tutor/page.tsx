@@ -1649,7 +1649,7 @@ function TutorPageInner() {
   }
 
   async function toggleQuestionRecording() {
-    if ((!camOn && !isGroupLive) || questionSubmitting) return;
+    if (questionSubmitting) return;
     if (asking) {
       await finishQuestionRecording();
       return;
@@ -3035,7 +3035,7 @@ function TutorPageInner() {
                       <Button
                         type="button"
                         variant={asking ? "destructive" : "secondary"}
-                        disabled={(!camOn && !isGroupLive) || questionSubmitting}
+                        disabled={questionSubmitting}
                         onClick={() => void toggleQuestionRecording()}
                       >
                         {questionSubmitting ? (
@@ -3168,7 +3168,7 @@ function TutorPageInner() {
                       variant={asking ? "destructive" : "default"}
                       size="icon"
                       className="size-14 rounded-full shadow-lg ring-2 ring-background"
-                      disabled={(!camOn && !isGroupLive) || questionSubmitting}
+                      disabled={questionSubmitting}
                       onClick={() => void toggleQuestionRecording()}
                     >
                       {questionSubmitting ? (
